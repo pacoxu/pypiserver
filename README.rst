@@ -58,7 +58,7 @@ For legacy Python versions, use ``pypiserver-1.1.x`` series.
 3. From the client computer, type this::
 
     ## Download and Install hosted packages.
-    pip install  --extra-index-url http://localhost:8080/pypi/simple/ ...
+    pip install  --extra-index-url http://localhost:8080/pypi/web/simple/ ...
 
     # or
     pip install --extra-index-url http://localhost:8080
@@ -113,7 +113,7 @@ For legacy Python versions, use ``pypiserver-1.1.x`` series.
 
       --fallback-url FALLBACK_URL
         for packages not found in the local index, this URL will be used to
-        redirect to (default: https://pypi.org/pypi/simple)
+        redirect to (default: https://pypi.org/pypi/web/simple)
 
       --server METHOD
         use METHOD to run the server. Valid values include paste,
@@ -201,12 +201,12 @@ Configuring *pip*
 For ``pip`` command this can be done by setting the environment variable
 ``PIP_EXTRA_INDEX_URL`` in your ``.bashr/.profile/.zshrc``::
 
-  export PIP_EXTRA_INDEX_URL=http://localhost:8080/pypi/simple/
+  export PIP_EXTRA_INDEX_URL=http://localhost:8080/pypi/web/simple/
 
 or by adding the following lines to ``~/.pip/pip.conf``::
 
   [global]
-  extra-index-url = http://localhost:8080/pypi/simple/
+  extra-index-url = http://localhost:8080/pypi/web/simple/
 
 .. Note::
    If you have installed *pypiserver* on a remote url without *https*
@@ -221,7 +221,7 @@ For ``easy_install`` command you may set the following configuration in
 ``~/.pydistutils.cfg``::
 
   [easy_install]
-  index_url = http://localhost:8080/pypi/simple/
+  index_url = http://localhost:8080/pypi/web/simple/
 
 
 Uploading Packages Remotely

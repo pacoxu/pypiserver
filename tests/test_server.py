@@ -369,7 +369,7 @@ def test_setuptools_upload_partial_authed(empty_packdir, port, project,
 
 def test_partial_authed_open_download(empty_packdir, port):
     """Validate that partial auth still allows downloads."""
-    url = _build_url(port) + '/pypi/simple'
+    url = _build_url(port) + '/pypi/web/simple'
     with new_server(empty_packdir, port, authed='partial'):
         resp = urlopen(url)
         assert resp.getcode() == 200

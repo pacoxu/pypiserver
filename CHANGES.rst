@@ -238,7 +238,7 @@ Serve 1000s of packages, PGP-Sigs, skip versions starting with 'v'.
 ------------------
 - add 'overwrite' option to allow overwriting existing package
   files (default: false)
-- show names with hyphens instead of underscores on the "/pypi/simple"
+- show names with hyphens instead of underscores on the "/pypi/web/simple"
   listing
 - make the standalone version work with jython 2.5.3
 - upgrade waitress to 0.8.5 in the standalone version

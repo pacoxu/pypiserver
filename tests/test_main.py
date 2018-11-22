@@ -80,13 +80,13 @@ def test_root_r(main):
 
 
 def test_fallback_url(main):
-    main(["--fallback-url", "https://pypi.mirror/pypi/simple"])
-    assert main.app.module.config.fallback_url == "https://pypi.mirror/pypi/simple"
+    main(["--fallback-url", "https://pypi.mirror/pypi/web/simple"])
+    assert main.app.module.config.fallback_url == "https://pypi.mirror/pypi/web/simple"
 
 
 def test_fallback_url_default(main):
     main([])
-    assert main.app.module.config.fallback_url == "https://pypi.org/pypi/simple"
+    assert main.app.module.config.fallback_url == "https://pypi.org/pypi/web/simple"
 
 
 def test_hash_algo_default(main):
