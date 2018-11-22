@@ -28,7 +28,7 @@ Changelog
 1.2.2 (2018-06-12)
 ------------------
 
-- FIX: update fallback URL to https://pypi.org/pypi/web/simplesince pypi.python.org
+- FIX: update fallback URL to https://pypi.org/pypi/simplesince pypi.python.org
   has shut down
 
 - FIX: updated tests to use ``Popen`` rather than ``pip.main()`` given its

@@ -66,7 +66,7 @@ For legacy Python versions, use ``pypiserver-1.1.x`` series.
     ## Search hosted packages
     pip search --index http://localhost:8080 ...
 
-    # Note that pip search does not currently work with the /pypi/web/simpleendpoint
+    # Note that pip search does not currently work with the /pypi/simpleendpoint
 
    See also `Client-side configurations`_ for avoiding tedious typing.
 
@@ -456,10 +456,10 @@ looks like::
     no releases found on pypi for PyXML, Pymacs, mercurial, setuptools
 
     # update raven from 1.4.3 to 1.4.4
-    pip -q install --no-deps  --extra-index-url https://pypi.org/pypi/web/simple-d /home/ralf/packages/mirror raven==1.4.4
+    pip -q install --no-deps  --extra-index-url https://pypi.org/pypi/simple-d /home/ralf/packages/mirror raven==1.4.4
 
     # update greenlet from 0.3.3 to 0.3.4
-    pip -q install --no-deps  --extra-index-url https://pypi.org/pypi/web/simple-d /home/ralf/packages/mirror greenlet==0.3.4
+    pip -q install --no-deps  --extra-index-url https://pypi.org/pypi/simple-d /home/ralf/packages/mirror greenlet==0.3.4
 
 It first prints for each package a single character after checking the
 available versions on pypi. A dot(`.`) means the package is up-to-date, ``'u'``
