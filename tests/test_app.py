@@ -118,7 +118,7 @@ def test_root_count(root, testapp):
 
 def test_root_hostname(testapp):
     resp = testapp.get("/", headers={"Host": "systemexit.de"})
-    resp.mustcontain("easy_install -i http://systemexit.de/simple/ PACKAGE")
+    resp.mustcontain("easy_install -i http://systemexit.de/pypi/simple/ PACKAGE")
     # go("http://systemexit.de/")
 
 
@@ -176,13 +176,13 @@ def test_favicon(testapp):
 
 def test_fallback(root, _app, testapp):
     assert _app.config.redirect_to_fallback
-    resp = testapp.get("/simple/pypiserver/", status=302)
-    assert resp.headers["Location"] == "https://pypi.org/simple/pypiserver/"
+    resp = testapp.get("/pypi/simple/pypiserver/", status=302)
+    assert resp.headers["Location"] == "https://pypi.org/pypi/simple/pypiserver/"
 
 
 def test_no_fallback(root, _app, testapp):
     _app.config.redirect_to_fallback = False
-    testapp.get("/simple/pypiserver/", status=404)
+    testapp.get("/pypi/simple/pypiserver/", status=404)
 
 
 def test_serve_no_dotfiles(root, testapp):
@@ -197,21 +197,21 @@ def test_packages_list_no_dotfiles(root, testapp):
 
 
 def test_simple_redirect(testapp):
-    resp = testapp.get("/simple")
+    resp = testapp.get("/pypi/simple")
     assert resp.status_code >= 300
     assert resp.status_code < 400
-    assert resp.location.endswith('/simple/')
+    assert resp.location.endswith('/pypi/simple/')
 
 
 def test_simple_list_no_dotfiles(root, testapp):
     root.join(".foo-1.0.zip").write("secret")
-    resp = testapp.get("/simple/")
+    resp = testapp.get("/pypi/simple/")
     assert "foo" not in resp
 
 
 def test_simple_list_no_dotfiles2(root, testapp):
     root.join(".foo-1.0.zip").write("secret")
-    resp = testapp.get("/simple/")
+    resp = testapp.get("/pypi/simple/")
     assert resp.html("a") == []
 
 
@@ -228,21 +228,21 @@ def test_packages_list_no_dotdir(root, testapp):
 
 def test_simple_list_no_dotdir(root, testapp):
     root.mkdir(".subdir").join("foo-1.0.zip").write("secret")
-    resp = testapp.get("/simple/")
+    resp = testapp.get("/pypi/simple/")
     assert "foo" not in resp
 
 
 def test_simple_list_no_dotdir2(root, testapp):
     root.mkdir(".subdir").join("foo-1.0.zip").write("secret")
-    resp = testapp.get("/simple/foo/")
+    resp = testapp.get("/pypi/simple/foo/")
     assert resp.html("a") == []
 
 
 def test_simple_name_redirect(testapp):
-    resp = testapp.get("/simple/foobar")
+    resp = testapp.get("/pypi/simple/foobar")
     assert resp.status_code >= 300
     assert resp.status_code < 400
-    assert resp.location.endswith('/simple/foobar/')
+    assert resp.location.endswith('/pypi/simple/foobar/')
 
 
 @pytest.mark.parametrize('package,normalized', [
@@ -253,10 +253,10 @@ def test_simple_name_redirect(testapp):
     ('foo--_.bar', 'foo-bar'),
 ])
 def test_simple_normalized_name_redirect(testapp, package, normalized):
-    resp = testapp.get("/simple/{0}/".format(package))
+    resp = testapp.get("/pypi/simple/{0}/".format(package))
     assert resp.status_code >= 300
     assert resp.status_code < 400
-    assert resp.location.endswith('/simple/{0}/'.format(normalized))
+    assert resp.location.endswith('/pypi/simple/{0}/'.format(normalized))
 
 
 def test_simple_index(root, testapp):
@@ -265,7 +265,7 @@ def test_simple_index(root, testapp):
     root.join("foobarbaz-1.1.zip").write("")
     root.join("foobar.baz-1.1.zip").write("")
 
-    resp = testapp.get("/simple/foobar/")
+    resp = testapp.get("/pypi/simple/foobar/")
     assert len(resp.html("a")) == 2
 
 
@@ -275,25 +275,25 @@ def test_simple_index_list(root, testapp):
     root.join("foobarbaz-1.1.zip").write("")
     root.join("foobar.baz-1.1.zip").write("")
 
-    resp = testapp.get("/simple/")
+    resp = testapp.get("/pypi/simple/")
     assert len(resp.html("a")) == 3
 
 
 def test_simple_index_case(root, testapp):
     root.join("FooBar-1.0.zip").write("")
     root.join("FooBar-1.1.zip").write("")
-    resp = testapp.get("/simple/foobar/")
+    resp = testapp.get("/pypi/simple/foobar/")
     assert len(resp.html("a")) == 2
 
 
 def test_nonroot_root(testpriv):
     resp = testpriv.get("/priv/", headers={"Host": "nonroot"})
-    resp.mustcontain("easy_install -i http://nonroot/priv/simple/ PACKAGE")
+    resp.mustcontain("easy_install -i http://nonroot/priv/pypi/simple/ PACKAGE")
 
 
 def test_nonroot_simple_index(root, testpriv):
     root.join("foobar-1.0.zip").write("")
-    resp = testpriv.get("/priv/simple/foobar/")
+    resp = testpriv.get("/priv/pypi/simple/foobar/")
     links = resp.html("a")
     assert len(links) == 1
     assert links[0]["href"].startswith("/priv/packages/foobar-1.0.zip#")
@@ -311,7 +311,7 @@ def test_root_no_relative_paths(testpriv):
     """https://github.com/pypiserver/pypiserver/issues/25"""
     resp = testpriv.get("/priv/")
     hrefs = [x["href"] for x in resp.html("a")]
-    assert hrefs == ['/priv/packages/', '/priv/simple/',
+    assert hrefs == ['/priv/packages/', '/priv/pypi/simple/',
                      'https://pypi.org/project/pypiserver/']
 
 
@@ -319,7 +319,7 @@ def test_simple_index_list_no_duplicates(root, testapp):
     root.join("foo-bar-1.0.tar.gz").write("")
     root.join("foo_bar-1.0-py2.7.egg").write("")
 
-    resp = testapp.get("/simple/")
+    resp = testapp.get("/pypi/simple/")
     assert len(resp.html("a")) == 1
 
 
@@ -327,7 +327,7 @@ def test_simple_index_list_name_with_underscore(root, testapp):
     root.join("foo_bar-1.0.tar.gz").write("")
     root.join("foo_bar-1.0-py2.7.egg").write("")
 
-    resp = testapp.get("/simple/")
+    resp = testapp.get("/pypi/simple/")
     assert len(resp.html("a")) == 1
     hrefs = [x["href"] for x in resp.html("a")]
     assert hrefs == ["foo-bar/"]
@@ -337,7 +337,7 @@ def test_simple_index_egg_and_tarball(root, testapp):
     root.join("foo-bar-1.0.tar.gz").write("")
     root.join("foo_bar-1.0-py2.7.egg").write("")
 
-    resp = testapp.get("/simple/foo-bar/")
+    resp = testapp.get("/pypi/simple/foo-bar/")
     assert len(resp.html("a")) == 2
 
 
@@ -345,7 +345,7 @@ def test_simple_index_list_name_with_underscore_no_egg(root, testapp):
     root.join("foo_bar-1.0.tar.gz").write("")
     root.join("foo-bar-1.1.tar.gz").write("")
 
-    resp = testapp.get("/simple/")
+    resp = testapp.get("/pypi/simple/")
     assert len(resp.html("a")) == 1
     hrefs = set([x["href"] for x in resp.html("a")])
     assert hrefs == {"foo-bar/"}

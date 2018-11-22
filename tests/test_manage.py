@@ -120,7 +120,7 @@ def test_pip_cmd_root(pip_ver, cmd_type):
 
 def test_pip_cmd_update():
     """Verify the correct determination of a pip command."""
-    index = 'https://pypi.org/simple'
+    index = 'https://pypi.org/pypi/simple'
     destdir = 'foo/bar'
     pkg_name = 'mypkg'
     pkg_version = '12.0'
@@ -166,7 +166,7 @@ def test_update_package(monkeypatch):
         '-q',
         'download',
         '--no-deps',
-        '-i', 'https://pypi.org/simple',
+        '-i', 'https://pypi.org/pypi/simple',
         '-d', '.',
         'mypkg==1.0',
     ))

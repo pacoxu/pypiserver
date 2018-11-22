@@ -70,7 +70,7 @@ def usage():
 
     --fallback-url FALLBACK_URL
       for packages not found in the local index, this URL will be used to
-      redirect to (default: https://pypi.python.org/simple)
+      redirect to (default: https://pypi.python.org/pypi/simple)
 
     --server METHOD
       use METHOD to run the server. Valid values include paste,

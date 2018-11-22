@@ -28,7 +28,7 @@ Changelog
 1.2.2 (2018-06-12)
 ------------------
 
-- FIX: update fallback URL to https://pypi.org/simple since pypi.python.org
+- FIX: update fallback URL to https://pypi.org/pypi/web/simplesince pypi.python.org
   has shut down
 
 - FIX: updated tests to use ``Popen`` rather than ``pip.main()`` given its
@@ -238,7 +238,7 @@ Serve 1000s of packages, PGP-Sigs, skip versions starting with 'v'.
 ------------------
 - add 'overwrite' option to allow overwriting existing package
   files (default: false)
-- show names with hyphens instead of underscores on the "/simple"
+- show names with hyphens instead of underscores on the "/pypi/simple"
   listing
 - make the standalone version work with jython 2.5.3
 - upgrade waitress to 0.8.5 in the standalone version

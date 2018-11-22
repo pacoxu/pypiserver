@@ -58,7 +58,7 @@ For legacy Python versions, use ``pypiserver-1.1.x`` series.
 3. From the client computer, type this::
 
     ## Download and Install hosted packages.
-    pip install  --extra-index-url http://localhost:8080/simple/ ...
+    pip install  --extra-index-url http://localhost:8080/pypi/simple/ ...
 
     # or
     pip install --extra-index-url http://localhost:8080
@@ -66,7 +66,7 @@ For legacy Python versions, use ``pypiserver-1.1.x`` series.
     ## Search hosted packages
     pip search --index http://localhost:8080 ...
 
-    # Note that pip search does not currently work with the /simple endpoint
+    # Note that pip search does not currently work with the /pypi/web/simpleendpoint
 
    See also `Client-side configurations`_ for avoiding tedious typing.
 
@@ -113,7 +113,7 @@ For legacy Python versions, use ``pypiserver-1.1.x`` series.
 
       --fallback-url FALLBACK_URL
         for packages not found in the local index, this URL will be used to
-        redirect to (default: https://pypi.org/simple)
+        redirect to (default: https://pypi.org/pypi/simple)
 
       --server METHOD
         use METHOD to run the server. Valid values include paste,
@@ -201,12 +201,12 @@ Configuring *pip*
 For ``pip`` command this can be done by setting the environment variable
 ``PIP_EXTRA_INDEX_URL`` in your ``.bashr/.profile/.zshrc``::
 
-  export PIP_EXTRA_INDEX_URL=http://localhost:8080/simple/
+  export PIP_EXTRA_INDEX_URL=http://localhost:8080/pypi/simple/
 
 or by adding the following lines to ``~/.pip/pip.conf``::
 
   [global]
-  extra-index-url = http://localhost:8080/simple/
+  extra-index-url = http://localhost:8080/pypi/simple/
 
 .. Note::
    If you have installed *pypiserver* on a remote url without *https*
@@ -221,7 +221,7 @@ For ``easy_install`` command you may set the following configuration in
 ``~/.pydistutils.cfg``::
 
   [easy_install]
-  index_url = http://localhost:8080/simple/
+  index_url = http://localhost:8080/pypi/simple/
 
 
 Uploading Packages Remotely
@@ -456,10 +456,10 @@ looks like::
     no releases found on pypi for PyXML, Pymacs, mercurial, setuptools
 
     # update raven from 1.4.3 to 1.4.4
-    pip -q install --no-deps  --extra-index-url https://pypi.org/simple -d /home/ralf/packages/mirror raven==1.4.4
+    pip -q install --no-deps  --extra-index-url https://pypi.org/pypi/web/simple-d /home/ralf/packages/mirror raven==1.4.4
 
     # update greenlet from 0.3.3 to 0.3.4
-    pip -q install --no-deps  --extra-index-url https://pypi.org/simple -d /home/ralf/packages/mirror greenlet==0.3.4
+    pip -q install --no-deps  --extra-index-url https://pypi.org/pypi/web/simple-d /home/ralf/packages/mirror greenlet==0.3.4
 
 It first prints for each package a single character after checking the
 available versions on pypi. A dot(`.`) means the package is up-to-date, ``'u'``

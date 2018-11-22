@@ -192,8 +192,8 @@ def update():
     return ""
 
 
-@app.route("/simple")
-@app.route("/simple/:prefix")
+@app.route("/pypi/simple")
+@app.route("/pypi/simple/:prefix")
 @app.route('/packages')
 @auth("list")
 def pep_503_redirects(prefix=None):
@@ -226,7 +226,7 @@ def handle_rpc():
         return call_string
 
 
-@app.route("/simple/")
+@app.route("/pypi/simple/")
 @auth("list")
 def simpleindex():
     links = sorted(core.get_prefixes(packages()))
@@ -246,13 +246,13 @@ def simpleindex():
     return template(tmpl, links=links)
 
 
-@app.route("/simple/:prefix/")
+@app.route("/pypi/simple/:prefix/")
 @auth("list")
 def simple(prefix=""):
     # PEP 503: require normalized prefix
     normalized = core.normalize_pkgname(prefix)
     if prefix != normalized:
-        return redirect('/simple/{0}/'.format(normalized), 301)
+        return redirect('/pypi/simple/{0}/'.format(normalized), 301)
 
     files = sorted(core.find_packages(packages(), prefix=prefix),
                    key=lambda x: (x.parsed_version, x.relfn))
@@ -331,7 +331,7 @@ def bad_url(prefix):
     if p.endswith("/"):
         p = p[:-1]
     p = p.rsplit('/', 1)[0]
-    p += "/simple/%s/" % prefix
+    p += "/pypi/simple/%s/" % prefix
 
     return redirect(p)
 

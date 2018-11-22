@@ -155,7 +155,7 @@ class PipCmd(object):
 
     @staticmethod
     def update(cmd_root, destdir, pkg_name, pkg_version,
-               index='https://pypi.org/simple'):
+               index='https://pypi.org/pypi/simple'):
         """Yield an update command for pip."""
         for part in cmd_root:
             yield part
